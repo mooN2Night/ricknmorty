@@ -13,11 +13,28 @@ dependencies:
 
   cupertino_icons: ^1.0.6
 
+  #annotation
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
+  #Functional Programming Either for Result or Failure
+  fpdart: ^1.1.1
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^3.0.0
+
+  #Autogeneration
+  build_runner: ^2.4.9
+
+  #Override hashcode, == and toString
+  freezed: ^2.5.2
+
+  #fromJson and toJson
+  json_serializable: ^6.8.0
 
 flutter:
 
