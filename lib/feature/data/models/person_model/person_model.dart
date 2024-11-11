@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:rick_and_morty/feature/domain/entities/person_entity/person_entity.dart';
 
 part 'person_model.g.dart';
 
@@ -47,4 +48,11 @@ class LocationModel {
       _$LocationModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$LocationModelToJson(this);
+
+  LocationEntity toEntity() {
+    return LocationEntity(
+      name: name,
+      url: url,
+    );
+  }
 }
