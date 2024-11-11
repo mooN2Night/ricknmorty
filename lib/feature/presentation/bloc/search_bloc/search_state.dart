@@ -4,7 +4,7 @@ abstract class PersonSearchState {
   const PersonSearchState();
 }
 
-class PersonEmpty extends PersonSearchState {}
+class PersonSearchEmpty extends PersonSearchState {}
 
 class PersonSearchLoading extends PersonSearchState {}
 
