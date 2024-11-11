@@ -13,13 +13,18 @@ dependencies:
 
   cupertino_icons: ^1.0.6
 
-  #annotation
+  #Annotation
   freezed_annotation: ^2.4.4
   json_annotation: ^4.9.0
 
   #Functional Programming Either for Result or Failure
   fpdart: ^1.1.1
 
+  #Remote Api
+  dio: ^5.7.0
+
+  #Local cache
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
