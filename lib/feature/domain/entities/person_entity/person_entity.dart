@@ -22,7 +22,7 @@ class PersonEntity with _$PersonEntity {
     required DateTime created,
   }) = _PersonEntity;
 
-  factory PersonEntity.fromJson(Map<String, Object?> json) =>
+  factory PersonEntity.fromJson(Map<String, dynamic> json) =>
       _$PersonEntityFromJson(json);
 }
 
@@ -33,6 +33,6 @@ class LocationEntity with _$LocationEntity {
     required String url,
   }) = _LocationEntity;
 
-  factory LocationEntity.fromJson(Map<String, Object?> json) =>
+  factory LocationEntity.fromJson(Map<String, dynamic> json) =>
       _$LocationEntityFromJson(json);
 }
