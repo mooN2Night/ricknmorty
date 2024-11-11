@@ -26,6 +26,9 @@ dependencies:
   #Local cache
   shared_preferences: ^2.2.3
 
+  #Connection Checker
+  internet_connection_checker_plus: ^2.5.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -40,6 +43,9 @@ dev_dependencies:
 
   #fromJson and toJson
   json_serializable: ^6.8.0
+
+  #State Manager
+  flutter_bloc: ^8.1.6
 
 flutter:
 

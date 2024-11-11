@@ -18,14 +18,17 @@ class PersonRemoteDataSourceImpl implements PersonRemoteDataSource {
 
   @override
   Future<List<PersonModel>> getAllPersons(int page) =>
-      _getPersonFromUrl('character');
+      _getPersonFromUrl('character/?page=$page');
 
   @override
   Future<List<PersonModel>> searchPerson(String name) =>
       _getPersonFromUrl('character/?name=$name');
 
   Future<List<PersonModel>> _getPersonFromUrl(String url) async {
-    final response = await dio.get('${AppConstants.baseUrl}$url');
+    final response = await dio.get(
+      '${AppConstants.baseUrl}$url',
+      options: Options(headers: {'Content-Type': 'application/json'}),
+    );
     if (response.statusCode == 200) {
       final persons = json.decode(response.data);
       return (persons['results'] as List)
