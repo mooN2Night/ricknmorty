@@ -8,8 +8,8 @@ import '../repositories/person_repository.dart';
 
 ///Use Cases будут получать сущности из репозитория и передавать эти сущности на
 ///уровень представления
-class SearchPerson extends UseCase<List<PersonEntity>, SearchPersonParams> {
-  SearchPerson(this.personRepository);
+class SearchPersonUseCase extends UseCase<List<PersonEntity>, SearchPersonParams> {
+  SearchPersonUseCase(this.personRepository);
 
   final PersonRepository personRepository;
 

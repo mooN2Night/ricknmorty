@@ -6,36 +6,53 @@ import 'package:rick_and_morty/feature/presentation/bloc/search_bloc/search_stat
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PersonSearchBloc extends Bloc<PersonSearchEvent, PersonSearchState> {
-  PersonSearchBloc(super.initialState, {required this.searchPersons});
+  final SearchPersonUseCase searchPersonsUseCase;
 
-  final SearchPerson searchPersons;
-
-  Stream<PersonSearchState> mapEventToState(PersonSearchEvent event) async* {
-    if (event is SearchPersons) {
-      yield* _mapFetchPersonsToState(event.personQuery);
-    }
+  PersonSearchBloc({required this.searchPersonsUseCase})
+      : super(PersonSearchEmpty()) {
+    on<SearchPersons>(_mapFetchPersonsToState);
   }
 
-  // PersonSearchBloc() : super(PersonSearchEmpty()) {
-  //   on<SearchPersons>(event, emit) {
-  //     if (event is SearchPersons) {
-  //       _mapFetchPersonsToState();
-  //     }
-  //   };
-  // }
+  _mapFetchPersonsToState(
+    SearchPersons event,
+    Emitter<PersonSearchState> emit,
+  ) async {
+    emit(PersonSearchLoading());
 
-  Stream<PersonSearchState> _mapFetchPersonsToState(String personQuery) async* {
-    yield PersonSearchLoading();
-
-    final failureOrPerson = await searchPersons(
-      SearchPersonParams(name: personQuery),
+    final result = await searchPersonsUseCase(
+      SearchPersonParams(name: event.personQuery),
     );
 
-    yield failureOrPerson.fold(
-      (failure) => PersonSearchError(message: mapFailureToMessage(failure)),
-      (person) => PersonSearchLoaded(
-        persons: person,
+    result.fold(
+      (failure) =>
+          emit(PersonSearchError(message: mapFailureToMessage(failure))),
+      (person) => emit(
+        PersonSearchLoaded(
+          persons: person,
+        ),
       ),
     );
   }
+// PersonSearchBloc(super.initialState, {required this.searchPersonsUseCase});
+
+// Stream<PersonSearchState> mapEventToState(PersonSearchEvent event) async* {
+//   if (event is SearchPersons) {
+//     yield* _mapFetchPersonsToState(event.personQuery);
+//   }
+// }
+
+// Stream<PersonSearchState> _mapFetchPersonsToState(String personQuery) async* {
+//   yield PersonSearchLoading();
+//
+//   final failureOrPerson = await searchPersons(
+//     SearchPersonParams(name: personQuery),
+//   );
+//
+//   yield failureOrPerson.fold(
+//     (failure) => PersonSearchError(message: mapFailureToMessage(failure)),
+//     (person) => PersonSearchLoaded(
+//       persons: person,
+//     ),
+//   );
+// }
 }

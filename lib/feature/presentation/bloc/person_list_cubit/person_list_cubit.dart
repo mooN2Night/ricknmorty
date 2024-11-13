@@ -7,10 +7,10 @@ import 'package:bloc/bloc.dart';
 
 class PersonListCubit extends Cubit<PersonState> {
   PersonListCubit({
-    required this.getAllPersons,
+    required this.getAllPersonsUseCase,
   }) : super(PersonEmpty());
 
-  final GetAllPersons getAllPersons;
+  final GetAllPersonsUseCase getAllPersonsUseCase;
   int page = 1;
 
   void loadPerson() async {
@@ -30,12 +30,16 @@ class PersonListCubit extends Cubit<PersonState> {
       ),
     );
 
-    final failureOrPerson = await getAllPersons(
+    final failureOrPerson = await getAllPersonsUseCase(
       GetAllPersonParams(page: page),
     );
 
     failureOrPerson.fold(
-      (failure) => PersonError(massage: mapFailureToMessage(failure)),
+      (failure) => emit(
+        PersonError(
+          massage: mapFailureToMessage(failure),
+        ),
+      ),
       (person) {
         page++;
         final persons = (state as PersonLoading).oldPersonsList;

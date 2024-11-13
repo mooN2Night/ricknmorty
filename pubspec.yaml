@@ -47,6 +47,9 @@ dev_dependencies:
   #State Manager
   flutter_bloc: ^8.1.6
 
+  #Service Locator
+  get_it: ^8.0.2
+
 flutter:
 
   uses-material-design: true
