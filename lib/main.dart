@@ -1,67 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/core/constants/theme_constants.dart';
+import 'package:rick_and_morty/feature/presentation/bloc/person_list_cubit/person_list_cubit.dart';
+import 'package:rick_and_morty/feature/presentation/bloc/search_bloc/search_bloc.dart';
+import 'package:rick_and_morty/service_locator.dart' as di;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty/service_locator.dart';
+import 'package:rick_and_morty/core/providers/theme_provider.dart';
 
-void main() {
+import 'feature/presentation/pages/person_screen.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Rick and Morty'),
-    );
-  }
+  State<MyApp> createState() => _MyAppState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+class _MyAppState extends State<MyApp> {
+  bool isDarkTheme = true;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
+  void toggleTheme(bool value) {
     setState(() {
-      _counter++;
+      isDarkTheme = value;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    return ThemeProvider(
+      isDarkTheme: isDarkTheme,
+      toggleTheme: toggleTheme,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<PersonSearchBloc>(
+            create: (context) => sl<PersonSearchBloc>(),
+          ),
+          BlocProvider<PersonListCubit>(
+            create: (context) => sl<PersonListCubit>()..loadPerson(),
+          ),
+        ],
+        child: MaterialApp(
+          theme: isDarkTheme
+              ? ThemeConstants.darkTheme
+              : ThemeConstants.lightTheme,
+          home: const PersonScreen(),
+          debugShowCheckedModeBanner: false,
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }

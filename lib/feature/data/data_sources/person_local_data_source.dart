@@ -16,12 +16,13 @@ class PersonLocalDataSourceImpl extends PersonLocalDataSource {
 
   final SharedPreferences sharedPreferences;
 
+  //TODO в примере нету async/await, убрать в случае ошибок
   @override
-  Future<List<PersonModel>> getLastPersonsFromCache() {
+  Future<List<PersonModel>> getLastPersonsFromCache() async {
     final jsonPersonsList =
         sharedPreferences.getStringList(AppConstants.cachePersonKey);
     if (jsonPersonsList != null) {
-      return Future.value(
+      return await Future.value(
         jsonPersonsList
             .map((person) => PersonModel.fromJson(json.decode(person)))
             .toList(),
