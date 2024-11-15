@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 abstract class PersonRemoteDataSource {
   Future<List<PersonModel>> getAllPersons(int page);
 
-  Future<List<PersonModel>> searchPerson(String name);
+  Future<List<PersonModel>> searchPerson(String name, int page);
 }
 
 class PersonRemoteDataSourceImpl implements PersonRemoteDataSource {
@@ -19,20 +19,26 @@ class PersonRemoteDataSourceImpl implements PersonRemoteDataSource {
       _getPersonFromUrl('character/?page=$page');
 
   @override
-  Future<List<PersonModel>> searchPerson(String name) =>
-      _getPersonFromUrl('character/?name=$name');
+  Future<List<PersonModel>> searchPerson(String name, int page) =>
+      _getPersonFromUrl('character/?name=$name&page=$page');
 
   Future<List<PersonModel>> _getPersonFromUrl(String url) async {
-    final response = await dio.get(
-      '${AppConstants.baseUrl}$url',
-      options: Options(headers: {'Content-Type': 'application/json'}),
-    );
-    if (response.statusCode == 200) {
-      final persons = response.data;
-      return (persons['results'] as List)
-          .map((person) => PersonModel.fromJson(person))
-          .toList();
-    } else {
+    try {
+      final response = await dio.get(
+        '${AppConstants.baseUrl}$url',
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
+
+      if (response.statusCode == 200) {
+        final persons = response.data;
+        return List<PersonModel>.from(
+          (persons['results'] as List)
+              .map((person) => PersonModel.fromJson(person)),
+        );
+      } else {
+        throw ServerException();
+      }
+    } on DioException {
       throw ServerException();
     }
   }

@@ -9,12 +9,17 @@ class AppConstants {
   static const String cacheFailure = 'Cache Failure';
   static const String unexpectedFailure = 'Unexpected Error';
 
+  static const String appName = 'Rick and Morty';
+
   static const Color darkScaffoldBackground = Color(0xFF36454F);
   static const Color lightScaffoldBackground = Color(0xFFFFFDD0);
   static const Color blackColor = Colors.black;
   static const Color greyColor = Colors.grey;
   static const Color whiteColor = Colors.white;
   static const Color trackColor = Color(0xFFb4b4b4);
+
+  static const SizedBox mainTextPadding = SizedBox(height: 15);
+  static const SizedBox helperTextPadding = SizedBox(height: 3);
 
   static const double trackOutlineWidth = 1;
   static const double appbarBorderRadius = 15;

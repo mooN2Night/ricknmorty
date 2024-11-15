@@ -6,5 +6,6 @@ part 'search_person_params.freezed.dart';
 class SearchPersonParams with _$SearchPersonParams {
   const factory SearchPersonParams({
     required String name,
+    required int page,
   }) = _SearchPersonParams;
 }

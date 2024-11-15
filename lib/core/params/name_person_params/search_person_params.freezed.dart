@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SearchPersonParams {
   String get name => throw _privateConstructorUsedError;
+  int get page => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SearchPersonParamsCopyWith<SearchPersonParams> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $SearchPersonParamsCopyWith<$Res> {
           SearchPersonParams value, $Res Function(SearchPersonParams) then) =
       _$SearchPersonParamsCopyWithImpl<$Res, SearchPersonParams>;
   @useResult
-  $Res call({String name});
+  $Res call({String name, int page});
 }
 
 /// @nodoc
@@ -46,12 +47,17 @@ class _$SearchPersonParamsCopyWithImpl<$Res, $Val extends SearchPersonParams>
   @override
   $Res call({
     Object? name = null,
+    Object? page = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -64,7 +70,7 @@ abstract class _$$SearchPersonParamsImplCopyWith<$Res>
       __$$SearchPersonParamsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name});
+  $Res call({String name, int page});
 }
 
 /// @nodoc
@@ -79,12 +85,17 @@ class __$$SearchPersonParamsImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? page = null,
   }) {
     return _then(_$SearchPersonParamsImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -92,14 +103,16 @@ class __$$SearchPersonParamsImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SearchPersonParamsImpl implements _SearchPersonParams {
-  const _$SearchPersonParamsImpl({required this.name});
+  const _$SearchPersonParamsImpl({required this.name, required this.page});
 
   @override
   final String name;
+  @override
+  final int page;
 
   @override
   String toString() {
-    return 'SearchPersonParams(name: $name)';
+    return 'SearchPersonParams(name: $name, page: $page)';
   }
 
   @override
@@ -107,11 +120,12 @@ class _$SearchPersonParamsImpl implements _SearchPersonParams {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SearchPersonParamsImpl &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.page, page) || other.page == page));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name);
+  int get hashCode => Object.hash(runtimeType, name, page);
 
   @JsonKey(ignore: true)
   @override
@@ -122,11 +136,14 @@ class _$SearchPersonParamsImpl implements _SearchPersonParams {
 }
 
 abstract class _SearchPersonParams implements SearchPersonParams {
-  const factory _SearchPersonParams({required final String name}) =
-      _$SearchPersonParamsImpl;
+  const factory _SearchPersonParams(
+      {required final String name,
+      required final int page}) = _$SearchPersonParamsImpl;
 
   @override
   String get name;
+  @override
+  int get page;
   @override
   @JsonKey(ignore: true)
   _$$SearchPersonParamsImplCopyWith<_$SearchPersonParamsImpl> get copyWith =>

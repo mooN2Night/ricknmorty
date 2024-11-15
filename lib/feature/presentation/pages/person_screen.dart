@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty/core/providers/theme_provider.dart';
-import 'package:rick_and_morty/feature/presentation/widgets/persons_list.dart';
+import 'package:rick_and_morty/feature/presentation/widgets/app_bar/app_bar.dart';
+import 'package:rick_and_morty/feature/presentation/widgets/person_screen/persons_list_widget.dart';
 
 class PersonScreen extends StatelessWidget {
   const PersonScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Rick and Morty'),
-        actions: [
-          Switch(
-            value: ThemeProvider.of(context).isDarkTheme,
-            onChanged: ThemeProvider.of(context).toggleTheme,
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.search),
-          ),
-        ],
+      appBar: const CustomAppBar(
+        showSearchIcon: true,
       ),
-      body: PersonsList(),
+      body: PersonsList(
+        scrollController: scrollController,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => scrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOut,
+        ),
+        child: const Icon(Icons.arrow_upward),
+      ),
     );
   }
 }

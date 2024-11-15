@@ -6,12 +6,16 @@ abstract class PersonSearchState {
 
 class PersonSearchEmpty extends PersonSearchState {}
 
-class PersonSearchLoading extends PersonSearchState {}
+class PersonSearchLoading extends PersonSearchState {
+  final List<PersonEntity>? oldPersonsList;
+
+  PersonSearchLoading({this.oldPersonsList});
+}
 
 class PersonSearchLoaded extends PersonSearchState {
   const PersonSearchLoaded({required this.persons});
 
-  final List<PersonEntity>? persons;
+  final List<PersonEntity> persons;
 }
 
 class PersonSearchError extends PersonSearchState {

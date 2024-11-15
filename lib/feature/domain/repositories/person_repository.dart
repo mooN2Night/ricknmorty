@@ -8,5 +8,5 @@ import 'package:rick_and_morty/feature/domain/entities/person_entity/person_enti
 abstract class PersonRepository {
   Future<Either<Failure, List<PersonEntity>>> getAllPersons(int page);
 
-  Future<Either<Failure, List<PersonEntity>>> searchPerson(String name);
+  Future<Either<Failure, List<PersonEntity>>> searchPerson(String name, int page);
 }

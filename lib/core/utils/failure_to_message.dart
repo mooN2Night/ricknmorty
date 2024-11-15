@@ -3,9 +3,9 @@ import 'package:rick_and_morty/core/error/failure.dart';
 
 String mapFailureToMessage(Failure failure) {
   switch (failure.runtimeType) {
-    case ServerFailure _:
+    case ServerFailure:
       return AppConstants.serverFailure;
-    case CacheFailure _:
+    case CacheFailure:
       return AppConstants.cacheFailure;
     default:
       return AppConstants.unexpectedFailure;

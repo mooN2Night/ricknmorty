@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/core/constants/app_constants.dart';
 import 'package:rick_and_morty/core/constants/theme_constants.dart';
 import 'package:rick_and_morty/feature/presentation/bloc/person_list_cubit/person_list_cubit.dart';
 import 'package:rick_and_morty/feature/presentation/bloc/search_bloc/search_bloc.dart';
@@ -47,8 +48,8 @@ class _MyAppState extends State<MyApp> {
         ],
         child: MaterialApp(
           theme: isDarkTheme
-              ? ThemeConstants.darkTheme
-              : ThemeConstants.lightTheme,
+              ? ThemeConstants.mainDarkTheme
+              : ThemeConstants.mainLightTheme,
           home: const PersonScreen(),
           debugShowCheckedModeBanner: false,
         ),

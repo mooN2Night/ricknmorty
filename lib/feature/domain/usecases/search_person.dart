@@ -21,6 +21,6 @@ class SearchPersonUseCase extends UseCase<List<PersonEntity>, SearchPersonParams
   Future<Either<Failure, List<PersonEntity>>> call(
     SearchPersonParams params,
   ) async {
-    return await personRepository.searchPerson(params.name);
+    return await personRepository.searchPerson(params.name, params.page);
   }
 }
